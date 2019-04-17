@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="Docker,">
 
 
 
@@ -80,14 +80,15 @@
 
 
 <meta name="description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 列出docker安装过的相关包：   sudo yum list installed | grep docker    删除相关安装包   sudo yum -y remove docker-ce.x86_64sudo yum -y remove docke">
+<meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装">
-<meta property="og:url" content="http://yoursite.com/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/index.html">
-<meta property="og:site_name" content="lifengming的博客">
+<meta property="og:url" content="http://yoursite.com/child/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/index.html">
+<meta property="og:site_name" content="帅的太过分的博客">
 <meta property="og:description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 列出docker安装过的相关包：   sudo yum list installed | grep docker    删除相关安装包   sudo yum -y remove docker-ce.x86_64sudo yum -y remove docke">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20181202123959838.png">
-<meta property="og:updated_time" content="2019-04-16T13:34:09.483Z">
+<meta property="og:updated_time" content="2019-04-17T13:33:05.477Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装">
 <meta name="twitter:description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 列出docker安装过的相关包：   sudo yum list installed | grep docker    删除相关安装包   sudo yum -y remove docker-ce.x86_64sudo yum -y remove docke">
@@ -121,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/">
+  <link rel="canonical" href="http://yoursite.com/child/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/">
 
 
 
 
 
-  <title>CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装 | lifengming的博客</title>
+  <title>CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装 | 帅的太过分的博客</title>
   
 
 
@@ -157,7 +158,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">lifengming的博客</span>
+        <span class="site-title">帅的太过分的博客</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -254,16 +255,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="lifengming">
+      <meta itemprop="name" content="handsome">
       <meta itemprop="description" content>
       <meta itemprop="image" content="/images/title.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lifengming的博客">
+      <meta itemprop="name" content="帅的太过分的博客">
     </span>
 
     
@@ -293,6 +294,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/容器/" itemprop="url" rel="index">
+                    <span itemprop="name">容器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -406,6 +429,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+        </div>
+      
 
       
       
@@ -493,10 +522,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/title.jpg" alt="lifengming">
+              <img class="site-author-image" itemprop="image" src="/images/title.jpg" alt="handsome">
             
-              <p class="site-author-name" itemprop="name">lifengming</p>
-              <p class="site-description motion-element" itemprop="description">有个小目标</p>
+              <p class="site-author-name" itemprop="name">handsome</p>
+              <p class="site-description motion-element" itemprop="description">这座城市风很大，孤独的人晚回家</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -513,13 +542,22 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
             
               
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -593,7 +631,7 @@
   <span class="with-love">
     <i class="fa fa-snowflake-o"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">lifengming</span>
+  <span class="author" itemprop="copyrightHolder">handsome</span>
 
   
   
@@ -612,7 +650,7 @@
 	
 	<div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共1.2k字</span>
+  <span class="post-count">博客全站共1k字</span>
 </div>
 </div>
 </div>
