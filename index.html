@@ -252,6 +252,191 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/20/离线搭建docker镜像仓库harborda/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="handsome">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/title.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="帅的太过分的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/20/离线搭建docker镜像仓库harborda/" itemprop="url">离线搭建Docker镜像仓库harborda</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-20T12:05:03+08:00">
+                2019-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  419
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1、说明"><a href="#1、说明" class="headerlink" title="1、说明"></a>1、说明</h1><p>搭建Harbor私有仓库来管理镜像，首先需要安装docker和docker-compose，本分主要介绍他们的离线搭建方式。</p>
+<h1 id="2、搭建docker环境"><a href="#2、搭建docker环境" class="headerlink" title="2、搭建docker环境"></a>2、搭建docker环境</h1><p>docker安装不是本次介绍重点：<a href="https://www.cnblogs.com/anxminise/p/9690635.html" title="可以参考该博文进行安装" target="_blank" rel="noopener">https://www.cnblogs.com/anxminise/p/9690635.html</a></p>
+<h1 id="3、搭建docker-compose"><a href="#3、搭建docker-compose" class="headerlink" title="3、搭建docker-compose"></a>3、搭建docker-compose</h1><h4 id="3-1-下载离线安装包"><a href="#3-1-下载离线安装包" class="headerlink" title="3.1 .下载离线安装包:"></a>3.1 .下载离线安装包:</h4><p>docker-compose下载地址：<a href="https://github.com/docker/compose/releases" title="docker-compose" target="_blank" rel="noopener">https://github.com/docker/compose/releases</a></p>
+<p>选择自己的版本，我选的是当前最新的1.24.0版本，点击下载。下载后上传到服务器/usr/local/bin/目录下。!</p>
+<p><img src="/img/docker-compose.jpg" alt></p>
+<h4 id="3-2-进入上述目录，对文件重命名，然后赋予执行权限："><a href="#3-2-进入上述目录，对文件重命名，然后赋予执行权限：" class="headerlink" title="3.2.进入上述目录，对文件重命名，然后赋予执行权限："></a>3.2.进入上述目录，对文件重命名，然后赋予执行权限：</h4><pre><code>cd  /usr/local/bin
+
+mv  docker-compose-Linux-x86_64  docker-compose
+
+sudo chmod +x docker-compose
+</code></pre><h4 id="3-3-查看docker-compose版本号："><a href="#3-3-查看docker-compose版本号：" class="headerlink" title="3.3.查看docker-compose版本号："></a>3.3.查看docker-compose版本号：</h4><pre><code>docker-compose --version
+</code></pre><h1 id="4、搭建harbor"><a href="#4、搭建harbor" class="headerlink" title="4、搭建harbor"></a>4、搭建harbor</h1><h4 id="4-1下载离线安装包："><a href="#4-1下载离线安装包：" class="headerlink" title="4.1下载离线安装包："></a>4.1下载离线安装包：</h4><pre><code>wget https://storage.googleapis.com/harbor-releases/harbor-offline-installer-v1.5.3.tgz
+</code></pre><p>harbor下载地址：<a href="https://github.com/goharbor/harbor/releases" title="harbor  github下载" target="_blank" rel="noopener">https://github.com/goharbor/harbor/releases</a></p>
+<p><img src="/img/harbordownload.jpg" alt></p>
+<h4 id="4-2解压离线安装包"><a href="#4-2解压离线安装包" class="headerlink" title="4.2解压离线安装包"></a>4.2解压离线安装包</h4><pre><code>tar -zxvf harbor-offline-installer-v1.5.3.tgz #解压离线安装包
+mv harbor /opt/ #移到/opt目录下
+cd /opt #进入到/opt目录
+ll #查看目录内容
+</code></pre><h4 id="4-3-配置Harbor"><a href="#4-3-配置Harbor" class="headerlink" title="4.3 配置Harbor"></a>4.3 配置Harbor</h4><pre><code>cd harbor #进入到harbor目录
+ll #查看目录内容
+</code></pre><p>编辑配置，并执行安装</p>
+<pre><code>vim vim harbor.cfg #编辑配置文件
+</code></pre><p>修改以下内容</p>
+<pre><code>hostname = 192.168.35.11 #修改harbor的启动ip，这里需要依据系统ip设置
+harbor_admin_password = admin123 #修改harbor的admin用户的密码
+</code></pre><h4 id="4-4-安装Harbor"><a href="#4-4-安装Harbor" class="headerlink" title="4.4 安装Harbor"></a>4.4 安装Harbor</h4><pre><code>./prepare #配置Harbor
+./install.sh #安装Harbor
+</code></pre><h4 id="4-5-访问Harbor"><a href="#4-5-访问Harbor" class="headerlink" title="4.5 访问Harbor"></a>4.5 访问Harbor</h4><h4 id="4-6-上传镜像到Harbor"><a href="#4-6-上传镜像到Harbor" class="headerlink" title="4.6 上传镜像到Harbor"></a>4.6 上传镜像到Harbor</h4><p>登录harbor<br>docke login 192.16.35.11<br><img src="/img/dockerlogin.jpg" alt></p>
+<p>浏览器中，输入192.16.35.11，如下：<br><img src="/img/harborui.jpg" alt></p>
+<p>上传成功可以在项目管理里面去查看：<br><img src="/img/dockerpull.jpg" alt></p>
+<p>参考博客：</p>
+<p><a href="https://www.cnblogs.com/anxminise/p/9764221.html" title="harbor离线安装" target="_blank" rel="noopener">https://www.cnblogs.com/anxminise/p/9764221.html</a></p>
+<p><a href="https://www.jianshu.com/p/6f9ce31b9aa7" title="docker-compose" target="_blank" rel="noopener">https://www.jianshu.com/p/6f9ce31b9aa7</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/17/hexo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1062,7 +1247,7 @@ docker rmi coredns/coredns:$DNS_VERSION
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1161,7 +1346,7 @@ docker rmi coredns/coredns:$DNS_VERSION
 	
 	<div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共1k字</span>
+  <span class="post-count">博客全站共1.5k字</span>
 </div>
 </div>
 </div>

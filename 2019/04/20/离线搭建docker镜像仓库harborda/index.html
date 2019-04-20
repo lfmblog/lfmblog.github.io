@@ -79,20 +79,24 @@
 
 
 
-<meta name="description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 列出docker安装过的相关包：   sudo yum list installed | grep docker    删除相关安装包   sudo yum -y remove docker-ce.x86_64sudo yum -y remove docke">
+<meta name="description" content="1、说明搭建Harbor私有仓库来管理镜像，首先需要安装docker和docker-compose，本分主要介绍他们的离线搭建方式。 2、搭建docker环境docker安装不是本次介绍重点：https://www.cnblogs.com/anxminise/p/9690635.html 3、搭建docker-compose3.1 .下载离线安装包:docker-compose下载地址：https">
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装">
-<meta property="og:url" content="http://yoursite.com/child/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/index.html">
+<meta property="og:title" content="离线搭建Docker镜像仓库harborda">
+<meta property="og:url" content="http://yoursite.com/child/2019/04/20/离线搭建docker镜像仓库harborda/index.html">
 <meta property="og:site_name" content="帅的太过分的博客">
-<meta property="og:description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 列出docker安装过的相关包：   sudo yum list installed | grep docker    删除相关安装包   sudo yum -y remove docker-ce.x86_64sudo yum -y remove docke">
+<meta property="og:description" content="1、说明搭建Harbor私有仓库来管理镜像，首先需要安装docker和docker-compose，本分主要介绍他们的离线搭建方式。 2、搭建docker环境docker安装不是本次介绍重点：https://www.cnblogs.com/anxminise/p/9690635.html 3、搭建docker-compose3.1 .下载离线安装包:docker-compose下载地址：https">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181202123959838.png">
-<meta property="og:updated_time" content="2019-04-17T13:33:05.477Z">
+<meta property="og:image" content="http://yoursite.com/img/docker-compose.jpg">
+<meta property="og:image" content="http://yoursite.com/img/harbordownload.jpg">
+<meta property="og:image" content="http://yoursite.com/img/dockerlogin.jpg">
+<meta property="og:image" content="http://yoursite.com/img/harborui.jpg">
+<meta property="og:image" content="http://yoursite.com/img/dockerpull.jpg">
+<meta property="og:updated_time" content="2019-04-20T04:21:44.232Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装">
-<meta name="twitter:description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 列出docker安装过的相关包：   sudo yum list installed | grep docker    删除相关安装包   sudo yum -y remove docker-ce.x86_64sudo yum -y remove docke">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181202123959838.png">
+<meta name="twitter:title" content="离线搭建Docker镜像仓库harborda">
+<meta name="twitter:description" content="1、说明搭建Harbor私有仓库来管理镜像，首先需要安装docker和docker-compose，本分主要介绍他们的离线搭建方式。 2、搭建docker环境docker安装不是本次介绍重点：https://www.cnblogs.com/anxminise/p/9690635.html 3、搭建docker-compose3.1 .下载离线安装包:docker-compose下载地址：https">
+<meta name="twitter:image" content="http://yoursite.com/img/docker-compose.jpg">
 
 
 
@@ -122,13 +126,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/">
+  <link rel="canonical" href="http://yoursite.com/child/2019/04/20/离线搭建docker镜像仓库harborda/">
 
 
 
 
 
-  <title>CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装 | 帅的太过分的博客</title>
+  <title>离线搭建Docker镜像仓库harborda | 帅的太过分的博客</title>
   
 
 
@@ -255,7 +259,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/20/离线搭建docker镜像仓库harborda/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="handsome">
@@ -272,7 +276,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装</h1>
+          <h1 class="post-title" itemprop="name headline">离线搭建Docker镜像仓库harborda</h1>
         
 
         <div class="post-meta">
@@ -284,8 +288,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-16T21:06:24+08:00">
-                2019-04-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-20T12:05:03+08:00">
+                2019-04-20
               </time>
             
 
@@ -294,28 +298,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/容器/" itemprop="url" rel="index">
-                    <span itemprop="name">容器</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -340,7 +322,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  475
+                  419
                 </span>
               
 
@@ -356,7 +338,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  1
                 </span>
               
             </div>
@@ -377,43 +359,39 @@
       
 
       
-        <p> 平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑：</p>
-<h3 id="docker的卸载："><a href="#docker的卸载：" class="headerlink" title="docker的卸载："></a>docker的卸载：</h3><ol>
-<li>列出docker安装过的相关包：</li>
-</ol>
-<blockquote>
-<p>sudo yum list installed | grep docker</p>
-</blockquote>
-<p><img src="https://img-blog.csdnimg.cn/20181202123959838.png" alt="在这里插入图片描述"></p>
-<ol start="2">
-<li>删除相关安装包</li>
-</ol>
-<blockquote>
-<p>sudo yum -y remove docker-ce.x86_64<br>sudo yum -y remove docker-ce-selinux.noarch</p>
-</blockquote>
-<ol start="3">
-<li>删除相关的镜像与容器</li>
-</ol>
-<blockquote>
-<p>sudo rm -rf /var/lib/docker</p>
-</blockquote>
-<h3 id="docker特定版本的安装"><a href="#docker特定版本的安装" class="headerlink" title="docker特定版本的安装"></a>docker特定版本的安装</h3><blockquote>
-<p>centOs安装最新的docker-ce版：<br>yum install docker -y<br>安装指定的dcker版本，需要如下几步：<br>1、 yum install -y yum-utils device-mapper-persistent-data lvm2<br>2、 yum-config-manager –add-repo <a href="https://download.docker.com/linux/centos/docker-ce.repo" target="_blank" rel="noopener">https://download.docker.com/linux/centos/docker-ce.repo</a><br>3、 yum install docker-ce-17.03.3.ce -y<br>如果提示container-selinux依赖问题，先安装ce-17.03匹配版本，再去执行第3步即可：<br>  yum localinstall <a href="https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.3.ce-1.el7.noarch.rpm" target="_blank" rel="noopener">https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.3.ce-1.el7.noarch.rpm</a><br>4、启动docker，并设置为开机自启<br> systemctl start docker &amp;&amp; systemctl enable docker </p>
-</blockquote>
-<p>注意：在搭建集群或者多台物理机需要安装docker时，为了方便可以把docker特定版本的安装步骤写成一个安装脚本，然后在分别去执行脚本即可完成安装：</p>
-<blockquote>
-<p>1、首先创建一个install-docker-ce-17.03.3.ce.sh的脚本（随便什么命名都可以，为了便于理解写成docker的版本号）<br>vim install-docker-ce-17.03.3.ce.sh</p>
-</blockquote>
-<blockquote>
-<p>2、创建的install-docker-ce-17.03.3.ce.sh脚本内容如下：</p>
-<p>#!/bin/sh<br>yum install -y yum-utils device-mapper-persistent-data lvm2 \<br>&amp;&amp; yum-config-manager –add-repo <a href="https://download.docker.com/linux/centos/docker-ce.repo" target="_blank" rel="noopener">https://download.docker.com/linux/centos/docker-ce.repo</a> -y \<br>&amp;&amp; yum localinstall <a href="https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.3.ce-1.el7.noarch.rpm" target="_blank" rel="noopener">https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.3.ce-1.el7.noarch.rpm</a> -y \<br>&amp;&amp; yum install docker-ce-17.03.3.ce -y \<br>&amp;&amp; systemctl start docker \<br>&amp;&amp; systemctl enable docker</p>
-</blockquote>
-<blockquote>
-<p>3、添加脚本可执行权限：<br>chmod +x install-docker-ce-17.03.3.ce.sh</p>
-</blockquote>
-<blockquote>
-<p>4、执行脚本：<br>./install-docker-ce-17.03.3.ce.sh</p>
-</blockquote>
+        <h1 id="1、说明"><a href="#1、说明" class="headerlink" title="1、说明"></a>1、说明</h1><p>搭建Harbor私有仓库来管理镜像，首先需要安装docker和docker-compose，本分主要介绍他们的离线搭建方式。</p>
+<h1 id="2、搭建docker环境"><a href="#2、搭建docker环境" class="headerlink" title="2、搭建docker环境"></a>2、搭建docker环境</h1><p>docker安装不是本次介绍重点：<a href="https://www.cnblogs.com/anxminise/p/9690635.html" title="可以参考该博文进行安装" target="_blank" rel="noopener">https://www.cnblogs.com/anxminise/p/9690635.html</a></p>
+<h1 id="3、搭建docker-compose"><a href="#3、搭建docker-compose" class="headerlink" title="3、搭建docker-compose"></a>3、搭建docker-compose</h1><h4 id="3-1-下载离线安装包"><a href="#3-1-下载离线安装包" class="headerlink" title="3.1 .下载离线安装包:"></a>3.1 .下载离线安装包:</h4><p>docker-compose下载地址：<a href="https://github.com/docker/compose/releases" title="docker-compose" target="_blank" rel="noopener">https://github.com/docker/compose/releases</a></p>
+<p>选择自己的版本，我选的是当前最新的1.24.0版本，点击下载。下载后上传到服务器/usr/local/bin/目录下。!</p>
+<p><img src="/img/docker-compose.jpg" alt></p>
+<h4 id="3-2-进入上述目录，对文件重命名，然后赋予执行权限："><a href="#3-2-进入上述目录，对文件重命名，然后赋予执行权限：" class="headerlink" title="3.2.进入上述目录，对文件重命名，然后赋予执行权限："></a>3.2.进入上述目录，对文件重命名，然后赋予执行权限：</h4><pre><code>cd  /usr/local/bin
+
+mv  docker-compose-Linux-x86_64  docker-compose
+
+sudo chmod +x docker-compose
+</code></pre><h4 id="3-3-查看docker-compose版本号："><a href="#3-3-查看docker-compose版本号：" class="headerlink" title="3.3.查看docker-compose版本号："></a>3.3.查看docker-compose版本号：</h4><pre><code>docker-compose --version
+</code></pre><h1 id="4、搭建harbor"><a href="#4、搭建harbor" class="headerlink" title="4、搭建harbor"></a>4、搭建harbor</h1><h4 id="4-1下载离线安装包："><a href="#4-1下载离线安装包：" class="headerlink" title="4.1下载离线安装包："></a>4.1下载离线安装包：</h4><pre><code>wget https://storage.googleapis.com/harbor-releases/harbor-offline-installer-v1.5.3.tgz
+</code></pre><p>harbor下载地址：<a href="https://github.com/goharbor/harbor/releases" title="harbor  github下载" target="_blank" rel="noopener">https://github.com/goharbor/harbor/releases</a></p>
+<p><img src="/img/harbordownload.jpg" alt></p>
+<h4 id="4-2解压离线安装包"><a href="#4-2解压离线安装包" class="headerlink" title="4.2解压离线安装包"></a>4.2解压离线安装包</h4><pre><code>tar -zxvf harbor-offline-installer-v1.5.3.tgz #解压离线安装包
+mv harbor /opt/ #移到/opt目录下
+cd /opt #进入到/opt目录
+ll #查看目录内容
+</code></pre><h4 id="4-3-配置Harbor"><a href="#4-3-配置Harbor" class="headerlink" title="4.3 配置Harbor"></a>4.3 配置Harbor</h4><pre><code>cd harbor #进入到harbor目录
+ll #查看目录内容
+</code></pre><p>编辑配置，并执行安装</p>
+<pre><code>vim vim harbor.cfg #编辑配置文件
+</code></pre><p>修改以下内容</p>
+<pre><code>hostname = 192.168.35.11 #修改harbor的启动ip，这里需要依据系统ip设置
+harbor_admin_password = admin123 #修改harbor的admin用户的密码
+</code></pre><h4 id="4-4-安装Harbor"><a href="#4-4-安装Harbor" class="headerlink" title="4.4 安装Harbor"></a>4.4 安装Harbor</h4><pre><code>./prepare #配置Harbor
+./install.sh #安装Harbor
+</code></pre><h4 id="4-5-访问Harbor"><a href="#4-5-访问Harbor" class="headerlink" title="4.5 访问Harbor"></a>4.5 访问Harbor</h4><h4 id="4-6-上传镜像到Harbor"><a href="#4-6-上传镜像到Harbor" class="headerlink" title="4.6 上传镜像到Harbor"></a>4.6 上传镜像到Harbor</h4><p>登录harbor<br>docke login 192.16.35.11<br><img src="/img/dockerlogin.jpg" alt></p>
+<p>浏览器中，输入192.16.35.11，如下：<br><img src="/img/harborui.jpg" alt></p>
+<p>上传成功可以在项目管理里面去查看：<br><img src="/img/dockerpull.jpg" alt></p>
+<p>参考博客：</p>
+<p><a href="https://www.cnblogs.com/anxminise/p/9764221.html" title="harbor离线安装" target="_blank" rel="noopener">https://www.cnblogs.com/anxminise/p/9764221.html</a></p>
+<p><a href="https://www.jianshu.com/p/6f9ce31b9aa7" title="docker-compose" target="_blank" rel="noopener">https://www.jianshu.com/p/6f9ce31b9aa7</a></p>
 
       
     </div>
@@ -444,8 +422,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/16/The connection to the server localhost8080 was refused - did you specify the right host or port/" rel="next" title="The connection to the server localhost:8080 was refused - did you specify the right host or port?">
-                <i class="fa fa-chevron-left"></i> The connection to the server localhost:8080 was refused - did you specify the right host or port?
+              <a href="/2019/04/17/hexo/" rel="next" title="Hexo常见操作">
+                <i class="fa fa-chevron-left"></i> Hexo常见操作
               </a>
             
           </div>
@@ -453,10 +431,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/16/解决k8s集群kubeadm init初始化镜像pull不下来的问题/" rel="prev" title="解决k8s初始化问题">
-                解决k8s初始化问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -606,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker的卸载："><span class="nav-number">1.</span> <span class="nav-text">docker的卸载：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker特定版本的安装"><span class="nav-number">2.</span> <span class="nav-text">docker特定版本的安装</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、说明"><span class="nav-number">1.</span> <span class="nav-text">1、说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、搭建docker环境"><span class="nav-number">2.</span> <span class="nav-text">2、搭建docker环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、搭建docker-compose"><span class="nav-number">3.</span> <span class="nav-text">3、搭建docker-compose</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-下载离线安装包"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">3.1 .下载离线安装包:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-进入上述目录，对文件重命名，然后赋予执行权限："><span class="nav-number">3.0.0.2.</span> <span class="nav-text">3.2.进入上述目录，对文件重命名，然后赋予执行权限：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-查看docker-compose版本号："><span class="nav-number">3.0.0.3.</span> <span class="nav-text">3.3.查看docker-compose版本号：</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#4、搭建harbor"><span class="nav-number">4.</span> <span class="nav-text">4、搭建harbor</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1下载离线安装包："><span class="nav-number">4.0.0.1.</span> <span class="nav-text">4.1下载离线安装包：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2解压离线安装包"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">4.2解压离线安装包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-配置Harbor"><span class="nav-number">4.0.0.3.</span> <span class="nav-text">4.3 配置Harbor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-安装Harbor"><span class="nav-number">4.0.0.4.</span> <span class="nav-text">4.4 安装Harbor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-5-访问Harbor"><span class="nav-number">4.0.0.5.</span> <span class="nav-text">4.5 访问Harbor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-6-上传镜像到Harbor"><span class="nav-number">4.0.0.6.</span> <span class="nav-text">4.6 上传镜像到Harbor</span></a></li></ol></li></div>
             
 
           </div>
