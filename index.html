@@ -252,6 +252,180 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/23/docker和k8s中批量删除不要的资源/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="仅茈而已">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/title.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="仅茈而已">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/23/docker和k8s中批量删除不要的资源/" itemprop="url">如何在Docker和k8s中批量删除不要的资源</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-23T23:24:26+08:00">
+                2019-04-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  344
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>经常玩Docker与K8s的朋友经常会遇到很多不是running的容器或者pod，其实这很浪费资源，下面主要介绍在Docker和K8s中批量删除不是running状态的容器或者pod。</p>
+<h2 id="清理exited进程："><a href="#清理exited进程：" class="headerlink" title="清理exited进程："></a>清理exited进程：</h2><pre><code>方法一：
+根据容器的状态，删除Exited状态的容器
+docker rm $(docker ps -q -f status=exited)
+
+方法二:
+显示所有的容器，过滤出Exited状态的容器，取出这些容器的ID
+sudo docker ps -a|grep Exited|awk &apos;{print $1}&apos;
+查询所有的容器，过滤出Exited状态的容器，列出容器ID，删除这些容器
+sudo docker rm `docker ps -a|grep Exited|awk &apos;{print $1}&apos;`
+或者
+docker ps -a|grep Exited|awk &apos;{print $1}&apos;|xargs docker rm
+
+方法三：
+删除所有未运行的容器（已经运行的删除不了，未运行的就一起被删除了）
+sudo docker rm $(sudo docker ps -a -q)
+
+方法四：Docker 1.13版本以后，可以使用 docker containers prune 命令，删除孤立的容器
+sudo docker container prune
+</code></pre><h2 id="清理dangling-volumes（可以参考清理exited进程的四种方法）："><a href="#清理dangling-volumes（可以参考清理exited进程的四种方法）：" class="headerlink" title="清理dangling volumes（可以参考清理exited进程的四种方法）："></a>清理dangling volumes（可以参考清理exited进程的四种方法）：</h2><pre><code>docker volume rm $(docker volume ls -qf dangling=true)
+</code></pre><h2 id="清理dangling-image（可以参考清理exited进程的四种方法）："><a href="#清理dangling-image（可以参考清理exited进程的四种方法）：" class="headerlink" title="清理dangling image（可以参考清理exited进程的四种方法）："></a>清理dangling image（可以参考清理exited进程的四种方法）：</h2><pre><code>docker rmi $(docker images --filter &quot;dangling=true&quot; -q --no-trunc)
+</code></pre><p>##清理MatchNodeSelector的pod（可以参考清理exited进程的四种方法）：<br>    kubectl –all-namespaces  get po -o wdie | grep MatchNodeSelector |awk ‘{print$1}’|xargs kubectl -n kube-system delete pods</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/20/离线搭建docker镜像仓库harborda/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -816,6 +990,197 @@ docker rmi coredns/coredns:$DNS_VERSION
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/16/The connection to the server localhost8080 was refused - did you specify the right host or port/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="仅茈而已">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/title.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="仅茈而已">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/16/The connection to the server localhost8080 was refused - did you specify the right host or port/" itemprop="url">The connection to the server localhost:8080 was refused - did you specify the right host or port?</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-16T21:06:24+08:00">
+                2019-04-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/微服务/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  99
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p><img src="/img/k8s/k8s001.png" alt></p>
+<pre><code>出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行
+</code></pre><h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><blockquote>
+<p>1、 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:</p>
+</blockquote>
+<blockquote>
+<pre><code>scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf
+</code></pre></blockquote>
+<blockquote>
+<p>2、 配置环境变量：</p>
+</blockquote>
+<pre><code>echo &quot;export KUBECONFIG=/etc/kubernetes/admin.conf&quot; &gt;&gt; ~/.bash_profile
+</code></pre><blockquote>
+<p>3、 立即生效：</p>
+<pre><code>source ~/.bash_profile
+</code></pre></blockquote>
+<h2 id="具体操作截图"><a href="#具体操作截图" class="headerlink" title="具体操作截图"></a>具体操作截图</h2><p><img src="/img/k8s/k8s002.png" alt></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1029,197 +1394,6 @@ yum install -y yum-utils device-mapper-persistent-data lvm2 \
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/16/The connection to the server localhost8080 was refused - did you specify the right host or port/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="仅茈而已">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/title.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="仅茈而已">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/16/The connection to the server localhost8080 was refused - did you specify the right host or port/" itemprop="url">The connection to the server localhost:8080 was refused - did you specify the right host or port?</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-16T21:06:24+08:00">
-                2019-04-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/微服务/" itemprop="url" rel="index">
-                    <span itemprop="name">微服务</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                  <span class="post-meta-divider">|</span>
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  99
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p><img src="/img/k8s/k8s001.png" alt></p>
-<pre><code>出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行
-</code></pre><h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><blockquote>
-<p>1、 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:</p>
-</blockquote>
-<blockquote>
-<pre><code>scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf
-</code></pre></blockquote>
-<blockquote>
-<p>2、 配置环境变量：</p>
-</blockquote>
-<pre><code>echo &quot;export KUBECONFIG=/etc/kubernetes/admin.conf&quot; &gt;&gt; ~/.bash_profile
-</code></pre><blockquote>
-<p>3、 立即生效：</p>
-<pre><code>source ~/.bash_profile
-</code></pre></blockquote>
-<h2 id="具体操作截图"><a href="#具体操作截图" class="headerlink" title="具体操作截图"></a>具体操作截图</h2><p><img src="/img/k8s/k8s002.png" alt></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1268,7 +1442,7 @@ yum install -y yum-utils device-mapper-persistent-data lvm2 \
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1367,7 +1541,7 @@ yum install -y yum-utils device-mapper-persistent-data lvm2 \
 	
 	<div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共1.5k字</span>
+  <span class="post-count">博客全站共1.9k字</span>
 </div>
 </div>
 </div>
