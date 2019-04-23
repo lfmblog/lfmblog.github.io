@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="SpringCloud,">
+  <meta name="keywords" content="k8s,">
 
 
 
@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="问题分析： 出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行 解决办法： 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:  scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf   配置环境变量：  echo">
-<meta name="keywords" content="SpringCloud">
+<meta name="description" content="问题分析 出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行 解决办法 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:  scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf   配置环境变量：  echo “">
+<meta name="keywords" content="k8s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The connection to the server localhost:8080 was refused - did you specify the right host or port?">
 <meta property="og:url" content="http://yoursite.com/child/2019/04/16/The connection to the server localhost8080 was refused - did you specify the right host or port/index.html">
 <meta property="og:site_name" content="帅的太过分的博客">
-<meta property="og:description" content="问题分析： 出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行 解决办法： 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:  scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf   配置环境变量：  echo">
+<meta property="og:description" content="问题分析 出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行 解决办法 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:  scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf   配置环境变量：  echo “">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20181202121056780.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2018120212035689.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xmbTk0MDYyNA==,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-04-17T13:35:25.692Z">
+<meta property="og:image" content="http://yoursite.com/img/k8s/k8s001.png">
+<meta property="og:image" content="http://yoursite.com/img/k8s/k8s002.png">
+<meta property="og:updated_time" content="2019-04-20T13:30:39.056Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="The connection to the server localhost:8080 was refused - did you specify the right host or port?">
-<meta name="twitter:description" content="问题分析： 出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行 解决办法： 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:  scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf   配置环境变量：  echo">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20181202121056780.png">
+<meta name="twitter:description" content="问题分析 出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行 解决办法 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:  scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf   配置环境变量：  echo “">
+<meta name="twitter:image" content="http://yoursite.com/img/k8s/k8s001.png">
 
 
 
@@ -378,9 +378,9 @@
       
 
       
-        <h2 id="问题分析："><a href="#问题分析：" class="headerlink" title="问题分析："></a>问题分析：</h2><p><img src="https://img-blog.csdnimg.cn/20181202121056780.png" alt="在这里插入图片描述"></p>
+        <h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p><img src="/img/k8s/k8s001.png" alt></p>
 <pre><code>出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行
-</code></pre><h2 id="解决办法："><a href="#解决办法：" class="headerlink" title="解决办法："></a>解决办法：</h2><ol>
+</code></pre><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><ol>
 <li><p>将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:</p>
 <blockquote>
 <p>scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf</p>
@@ -397,7 +397,7 @@
 </blockquote>
 </li>
 </ol>
-<h2 id="具体操作截图："><a href="#具体操作截图：" class="headerlink" title="具体操作截图："></a>具体操作截图：</h2><p><img src="https://img-blog.csdnimg.cn/2018120212035689.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xmbTk0MDYyNA==,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="具体操作截图"><a href="#具体操作截图" class="headerlink" title="具体操作截图"></a>具体操作截图</h2><p><img src="/img/k8s/k8s002.png" alt></p>
 
       
     </div>
@@ -415,7 +415,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SpringCloud/" rel="tag"># SpringCloud</a>
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
           
         </div>
       
@@ -428,18 +428,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/" rel="next" title="CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装">
-                <i class="fa fa-chevron-left"></i> CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/16/解决k8s集群kubeadm init初始化镜像pull不下来的问题/" rel="prev" title="解决k8s初始化问题">
-                解决k8s初始化问题 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/" rel="prev" title="CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装">
+                CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -541,7 +537,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -590,7 +586,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题分析："><span class="nav-number">1.</span> <span class="nav-text">问题分析：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法："><span class="nav-number">2.</span> <span class="nav-text">解决办法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体操作截图："><span class="nav-number">3.</span> <span class="nav-text">具体操作截图：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题分析"><span class="nav-number">1.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决办法"><span class="nav-number">2.</span> <span class="nav-text">解决办法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体操作截图"><span class="nav-number">3.</span> <span class="nav-text">具体操作截图</span></a></li></ol></div>
             
 
           </div>
