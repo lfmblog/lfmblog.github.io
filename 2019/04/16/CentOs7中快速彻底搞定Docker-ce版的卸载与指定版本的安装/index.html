@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 列出docker安装过的相关包：   sudo yum list installed | grep docker    删除相关安装包   sudo yum -y remove docker-ce.x86_64sudo yum -y remove docke">
+<meta name="description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 1、列出docker安装过的相关包：  sudo yum list installed | grep docker     2、删除相关安装包  sudo yum -y remove docker-ce.x86_64   sudo yum -y remove">
 <meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装">
 <meta property="og:url" content="http://yoursite.com/child/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/index.html">
 <meta property="og:site_name" content="仅茈而已">
-<meta property="og:description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 列出docker安装过的相关包：   sudo yum list installed | grep docker    删除相关安装包   sudo yum -y remove docker-ce.x86_64sudo yum -y remove docke">
+<meta property="og:description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 1、列出docker安装过的相关包：  sudo yum list installed | grep docker     2、删除相关安装包  sudo yum -y remove docker-ce.x86_64   sudo yum -y remove">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/img/docker/docker01.jpg">
-<meta property="og:updated_time" content="2019-04-23T14:44:02.747Z">
+<meta property="og:updated_time" content="2019-04-23T15:14:27.092Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装">
-<meta name="twitter:description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 列出docker安装过的相关包：   sudo yum list installed | grep docker    删除相关安装包   sudo yum -y remove docker-ce.x86_64sudo yum -y remove docke">
+<meta name="twitter:description" content="平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑： docker的卸载： 1、列出docker安装过的相关包：  sudo yum list installed | grep docker     2、删除相关安装包  sudo yum -y remove docker-ce.x86_64   sudo yum -y remove">
 <meta name="twitter:image" content="http://yoursite.com/img/docker/docker01.jpg">
 
 
@@ -340,7 +340,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  475
+                  485
                 </span>
               
 
@@ -378,43 +378,58 @@
 
       
         <p> 平时安装docker的时候可能会遇到docker版本与自己的预期的版本不相符，今天博主给分享一下自己曾今遇到过的坑：</p>
-<h3 id="docker的卸载："><a href="#docker的卸载：" class="headerlink" title="docker的卸载："></a>docker的卸载：</h3><ol>
-<li>列出docker安装过的相关包：</li>
-</ol>
-<blockquote>
-<p>sudo yum list installed | grep docker</p>
+<h3 id="docker的卸载："><a href="#docker的卸载：" class="headerlink" title="docker的卸载："></a>docker的卸载：</h3><blockquote>
+<p>1、列出docker安装过的相关包：</p>
+</blockquote>
+<pre><code>sudo yum list installed | grep docker
+</code></pre><blockquote>
 </blockquote>
 <p><img src="/img/docker/docker01.jpg" alt></p>
-<ol start="2">
-<li>删除相关安装包</li>
-</ol>
 <blockquote>
-<p>sudo yum -y remove docker-ce.x86_64<br>sudo yum -y remove docker-ce-selinux.noarch</p>
+<p>2、删除相关安装包</p>
 </blockquote>
-<ol start="3">
-<li>删除相关的镜像与容器</li>
-</ol>
+<pre><code>sudo yum -y remove docker-ce.x86_64  
+sudo yum -y remove docker-ce-selinux.noarch`
+</code></pre><blockquote>
+<p>3、删除相关的镜像与容器</p>
+</blockquote>
+<pre><code>sudo rm -rf /var/lib/docker
+</code></pre><h3 id="docker特定版本的安装"><a href="#docker特定版本的安装" class="headerlink" title="docker特定版本的安装"></a>docker特定版本的安装</h3><blockquote>
+<p>centOs安装最新的docker-ce版：</p>
+</blockquote>
+<pre><code>yum install docker -y 
+安装指定的dcker版本，需要如下几步：
+1、 yum install -y yum-utils device-mapper-persistent-data lvm2
+2、 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+3、 yum install docker-ce-17.03.3.ce -y
+如果提示container-selinux依赖问题，先安装ce-17.03匹配版本，再去执行第3步即可：
+   yum localinstall https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.3.ce-1.el7.noarch.rpm
+4、启动docker，并设置为开机自启
+  systemctl start docker &amp;&amp; systemctl enable docker 
+</code></pre><p>注意：在搭建集群或者多台物理机需要安装docker时，为了方便可以把docker特定版本的安装步骤写成一个安装脚本，然后在分别去执行脚本即可完成安装：</p>
 <blockquote>
-<p>sudo rm -rf /var/lib/docker</p>
-</blockquote>
-<h3 id="docker特定版本的安装"><a href="#docker特定版本的安装" class="headerlink" title="docker特定版本的安装"></a>docker特定版本的安装</h3><blockquote>
-<p>centOs安装最新的docker-ce版：<br>yum install docker -y<br>安装指定的dcker版本，需要如下几步：<br>1、 yum install -y yum-utils device-mapper-persistent-data lvm2<br>2、 yum-config-manager –add-repo <a href="https://download.docker.com/linux/centos/docker-ce.repo" target="_blank" rel="noopener">https://download.docker.com/linux/centos/docker-ce.repo</a><br>3、 yum install docker-ce-17.03.3.ce -y<br>如果提示container-selinux依赖问题，先安装ce-17.03匹配版本，再去执行第3步即可：<br>  yum localinstall <a href="https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.3.ce-1.el7.noarch.rpm" target="_blank" rel="noopener">https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.3.ce-1.el7.noarch.rpm</a><br>4、启动docker，并设置为开机自启<br> systemctl start docker &amp;&amp; systemctl enable docker </p>
-</blockquote>
-<p>注意：在搭建集群或者多台物理机需要安装docker时，为了方便可以把docker特定版本的安装步骤写成一个安装脚本，然后在分别去执行脚本即可完成安装：</p>
-<blockquote>
-<p>1、首先创建一个install-docker-ce-17.03.3.ce.sh的脚本（随便什么命名都可以，为了便于理解写成docker的版本号）<br>vim install-docker-ce-17.03.3.ce.sh</p>
-</blockquote>
+<p>1、首先创建一个install-docker-ce-17.03.3.ce.sh的脚本（随便什么命名都可以，为了便于理解写成docker的版本号）</p>
+<pre><code>vim install-docker-ce-17.03.3.ce.sh
+</code></pre></blockquote>
 <blockquote>
 <p>2、创建的install-docker-ce-17.03.3.ce.sh脚本内容如下：</p>
-<p>#!/bin/sh<br>yum install -y yum-utils device-mapper-persistent-data lvm2 \<br>&amp;&amp; yum-config-manager –add-repo <a href="https://download.docker.com/linux/centos/docker-ce.repo" target="_blank" rel="noopener">https://download.docker.com/linux/centos/docker-ce.repo</a> -y \<br>&amp;&amp; yum localinstall <a href="https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.3.ce-1.el7.noarch.rpm" target="_blank" rel="noopener">https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.3.ce-1.el7.noarch.rpm</a> -y \<br>&amp;&amp; yum install docker-ce-17.03.3.ce -y \<br>&amp;&amp; systemctl start docker \<br>&amp;&amp; systemctl enable docker</p>
 </blockquote>
-<blockquote>
-<p>3、添加脚本可执行权限：<br>chmod +x install-docker-ce-17.03.3.ce.sh</p>
+<pre><code>#!/bin/sh
+yum install -y yum-utils device-mapper-persistent-data lvm2 \
+&amp;&amp; yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo -y \
+&amp;&amp; yum localinstall https://download.docker.com/linux/centos/7/x86_64/stable/Packages/docker-ce-selinux-17.03.3.ce-1.el7.noarch.rpm -y \
+&amp;&amp; yum install docker-ce-17.03.3.ce -y \
+&amp;&amp; systemctl start docker \
+&amp;&amp; systemctl enable docker
+</code></pre><blockquote>
+<p>3、添加脚本可执行权限：</p>
 </blockquote>
-<blockquote>
-<p>4、执行脚本：<br>./install-docker-ce-17.03.3.ce.sh</p>
+<pre><code>chmod +x install-docker-ce-17.03.3.ce.sh
+</code></pre><blockquote>
+<p>4、执行脚本</p>
 </blockquote>
-
+<pre><code>./install-docker-ce-17.03.3.ce.sh
+</code></pre>
       
     </div>
     
