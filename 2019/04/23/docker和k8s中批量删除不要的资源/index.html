@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="仅茈而已">
 <meta property="og:description" content="背景经常玩Docker与K8s的朋友经常会遇到很多不是running的容器或者pod，其实这很浪费资源，下面主要介绍在Docker和K8s中批量删除不是running状态的容器或者pod。 清理exited进程：方法一： 根据容器的状态，删除Exited状态的容器 docker rm $(docker ps -q -f status=exited)  方法二: 显示所有的容器，过滤出Exited状">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-23T15:46:15.122Z">
+<meta property="og:updated_time" content="2019-04-23T15:48:29.963Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何在Docker和k8s中批量删除不要的资源">
 <meta name="twitter:description" content="背景经常玩Docker与K8s的朋友经常会遇到很多不是running的容器或者pod，其实这很浪费资源，下面主要介绍在Docker和K8s中批量删除不是running状态的容器或者pod。 清理exited进程：方法一： 根据容器的状态，删除Exited状态的容器 docker rm $(docker ps -q -f status=exited)  方法二: 显示所有的容器，过滤出Exited状">
@@ -316,7 +316,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  344
+                  346
                 </span>
               
 
@@ -353,8 +353,8 @@
       
 
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>经常玩Docker与K8s的朋友经常会遇到很多不是running的容器或者pod，其实这很浪费资源，下面主要介绍在Docker和K8s中批量删除不是running状态的容器或者pod。</p>
-<h2 id="清理exited进程："><a href="#清理exited进程：" class="headerlink" title="清理exited进程："></a>清理exited进程：</h2><pre><code>方法一：
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>经常玩Docker与K8s的朋友经常会遇到很多不是running的容器或者pod，其实这很浪费资源，下面主要介绍在Docker和K8s中批量删除不是running状态的容器或者pod。</p>
+<h3 id="清理exited进程："><a href="#清理exited进程：" class="headerlink" title="清理exited进程："></a>清理exited进程：</h3><pre><code>方法一：
 根据容器的状态，删除Exited状态的容器
 docker rm $(docker ps -q -f status=exited)
 
@@ -372,10 +372,10 @@ sudo docker rm $(sudo docker ps -a -q)
 
 方法四：Docker 1.13版本以后，可以使用 docker containers prune 命令，删除孤立的容器
 sudo docker container prune
-</code></pre><h2 id="清理dangling-volumes（可以参考清理exited进程的四种方法）："><a href="#清理dangling-volumes（可以参考清理exited进程的四种方法）：" class="headerlink" title="清理dangling volumes（可以参考清理exited进程的四种方法）："></a>清理dangling volumes（可以参考清理exited进程的四种方法）：</h2><pre><code>docker volume rm $(docker volume ls -qf dangling=true)
-</code></pre><h2 id="清理dangling-image（可以参考清理exited进程的四种方法）："><a href="#清理dangling-image（可以参考清理exited进程的四种方法）：" class="headerlink" title="清理dangling image（可以参考清理exited进程的四种方法）："></a>清理dangling image（可以参考清理exited进程的四种方法）：</h2><pre><code>docker rmi $(docker images --filter &quot;dangling=true&quot; -q --no-trunc)
-</code></pre><p>##清理MatchNodeSelector的pod（可以参考清理exited进程的四种方法）：<br>    kubectl –all-namespaces  get po -o wdie | grep MatchNodeSelector |awk ‘{print$1}’|xargs kubectl -n kube-system delete pods</p>
-
+</code></pre><h3 id="清理dangling-volumes（可以参考清理exited进程的四种方法）："><a href="#清理dangling-volumes（可以参考清理exited进程的四种方法）：" class="headerlink" title="清理dangling volumes（可以参考清理exited进程的四种方法）："></a>清理dangling volumes（可以参考清理exited进程的四种方法）：</h3><pre><code>docker volume rm $(docker volume ls -qf dangling=true)
+</code></pre><h3 id="清理dangling-image（可以参考清理exited进程的四种方法）："><a href="#清理dangling-image（可以参考清理exited进程的四种方法）：" class="headerlink" title="清理dangling image（可以参考清理exited进程的四种方法）："></a>清理dangling image（可以参考清理exited进程的四种方法）：</h3><pre><code>docker rmi $(docker images --filter &quot;dangling=true&quot; -q --no-trunc)
+</code></pre><h3 id="清理MatchNodeSelector的pod（可以参考清理exited进程的四种方法）："><a href="#清理MatchNodeSelector的pod（可以参考清理exited进程的四种方法）：" class="headerlink" title="清理MatchNodeSelector的pod（可以参考清理exited进程的四种方法）："></a>清理MatchNodeSelector的pod（可以参考清理exited进程的四种方法）：</h3><pre><code>kubectl --all-namespaces  get po -o wdie | grep MatchNodeSelector |awk &apos;{print$1}&apos;|xargs kubectl -n kube-system delete pods
+</code></pre>
       
     </div>
     
@@ -565,7 +565,7 @@ sudo docker container prune
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清理exited进程："><span class="nav-number">2.</span> <span class="nav-text">清理exited进程：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清理dangling-volumes（可以参考清理exited进程的四种方法）："><span class="nav-number">3.</span> <span class="nav-text">清理dangling volumes（可以参考清理exited进程的四种方法）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清理dangling-image（可以参考清理exited进程的四种方法）："><span class="nav-number">4.</span> <span class="nav-text">清理dangling image（可以参考清理exited进程的四种方法）：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理exited进程："><span class="nav-number">2.</span> <span class="nav-text">清理exited进程：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理dangling-volumes（可以参考清理exited进程的四种方法）："><span class="nav-number">3.</span> <span class="nav-text">清理dangling volumes（可以参考清理exited进程的四种方法）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理dangling-image（可以参考清理exited进程的四种方法）："><span class="nav-number">4.</span> <span class="nav-text">清理dangling image（可以参考清理exited进程的四种方法）：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理MatchNodeSelector的pod（可以参考清理exited进程的四种方法）："><span class="nav-number">5.</span> <span class="nav-text">清理MatchNodeSelector的pod（可以参考清理exited进程的四种方法）：</span></a></li></ol></div>
             
 
           </div>
