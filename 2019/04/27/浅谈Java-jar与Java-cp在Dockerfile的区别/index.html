@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="k8s,">
+  <meta name="keywords" content="Docker,">
 
 
 
@@ -79,21 +79,23 @@
 
 
 
-<meta name="description" content="问题分析 出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行 解决办法 1、 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:   scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf   2、 配置环境变量：">
-<meta name="keywords" content="k8s">
+<meta name="description" content="首先看看Java -help的一张截图： 从截图截图可以看出Java命令运行一个程序的的两种用法： 用法: java [-options] class [args...] (执行类)  或者  java [-options] -jar jarfile [args...] (执行jar文件) 在使用docker制作镜像的时候，我们应该怎么编写上面java的两种用法的Dockfile呢？ 一、Dock">
+<meta name="keywords" content="Docker">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The connection to the server localhost:8080 was refused - did you specify the right host or port?">
-<meta property="og:url" content="http://yoursite.com/child/2019/04/16/The connection to the server localhost8080 was refused - did you specify the right host or port/index.html">
+<meta property="og:title" content="浅谈Java -jar与Java -cp在Dockerfile的区别">
+<meta property="og:url" content="http://yoursite.com/child/2019/04/27/浅谈Java-jar与Java-cp在Dockerfile的区别/index.html">
 <meta property="og:site_name" content="仅茈而已">
-<meta property="og:description" content="问题分析 出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行 解决办法 1、 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:   scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf   2、 配置环境变量：">
+<meta property="og:description" content="首先看看Java -help的一张截图： 从截图截图可以看出Java命令运行一个程序的的两种用法： 用法: java [-options] class [args...] (执行类)  或者  java [-options] -jar jarfile [args...] (执行jar文件) 在使用docker制作镜像的时候，我们应该怎么编写上面java的两种用法的Dockfile呢？ 一、Dock">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/img/k8s/k8s001.png">
-<meta property="og:image" content="http://yoursite.com/img/k8s/k8s002.png">
-<meta property="og:updated_time" content="2019-04-23T15:16:23.363Z">
+<meta property="og:image" content="http://yoursite.com/img/other/java01.jpg">
+<meta property="og:image" content="http://yoursite.com/img/other/java02.jpg">
+<meta property="og:image" content="http://yoursite.com/img/other/java04.jpg">
+<meta property="og:image" content="http://yoursite.com/img/other/java03.jpg">
+<meta property="og:updated_time" content="2019-04-27T14:37:33.544Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The connection to the server localhost:8080 was refused - did you specify the right host or port?">
-<meta name="twitter:description" content="问题分析 出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行 解决办法 1、 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:   scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf   2、 配置环境变量：">
-<meta name="twitter:image" content="http://yoursite.com/img/k8s/k8s001.png">
+<meta name="twitter:title" content="浅谈Java -jar与Java -cp在Dockerfile的区别">
+<meta name="twitter:description" content="首先看看Java -help的一张截图： 从截图截图可以看出Java命令运行一个程序的的两种用法： 用法: java [-options] class [args...] (执行类)  或者  java [-options] -jar jarfile [args...] (执行jar文件) 在使用docker制作镜像的时候，我们应该怎么编写上面java的两种用法的Dockfile呢？ 一、Dock">
+<meta name="twitter:image" content="http://yoursite.com/img/other/java01.jpg">
 
 
 
@@ -123,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/child/2019/04/16/The connection to the server localhost8080 was refused - did you specify the right host or port/">
+  <link rel="canonical" href="http://yoursite.com/child/2019/04/27/浅谈Java-jar与Java-cp在Dockerfile的区别/">
 
 
 
 
 
-  <title>The connection to the server localhost:8080 was refused - did you specify the right host or port? | 仅茈而已</title>
+  <title>浅谈Java -jar与Java -cp在Dockerfile的区别 | 仅茈而已</title>
   
 
 
@@ -256,7 +258,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/16/The connection to the server localhost8080 was refused - did you specify the right host or port/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/child/2019/04/27/浅谈Java-jar与Java-cp在Dockerfile的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="仅茈而已">
@@ -273,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">The connection to the server localhost:8080 was refused - did you specify the right host or port?</h1>
+          <h1 class="post-title" itemprop="name headline">浅谈Java -jar与Java -cp在Dockerfile的区别</h1>
         
 
         <div class="post-meta">
@@ -285,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-16T21:06:24+08:00">
-                2019-04-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-27T22:37:00+08:00">
+                2019-04-27
               </time>
             
 
@@ -295,28 +297,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/微服务/" itemprop="url" rel="index">
-                    <span itemprop="name">微服务</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -341,7 +321,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  99
+                  698
                 </span>
               
 
@@ -357,7 +337,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -378,24 +358,41 @@
       
 
       
-        <h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p><img src="/img/k8s/k8s001.png" alt></p>
-<pre><code>出现这个问题的原因是kubectl命令需要使用kubernetes-admin来运行
-</code></pre><h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><blockquote>
-<p>1、 将主节点（master节点）中的【/etc/kubernetes/admin.conf】文件拷贝到从节点相同目录下:</p>
-</blockquote>
-<blockquote>
-<pre><code>scp -r /etc/kubernetes/admin.conf ${node1}:/etc/kubernetes/admin.conf
-</code></pre></blockquote>
-<blockquote>
-<p>2、 配置环境变量：</p>
-</blockquote>
-<pre><code>echo &quot;export KUBECONFIG=/etc/kubernetes/admin.conf&quot; &gt;&gt; ~/.bash_profile
-</code></pre><blockquote>
-<p>3、 立即生效：</p>
-<pre><code>source ~/.bash_profile
-</code></pre></blockquote>
-<h2 id="具体操作截图"><a href="#具体操作截图" class="headerlink" title="具体操作截图"></a>具体操作截图</h2><p><img src="/img/k8s/k8s002.png" alt></p>
+        <p>首先看看Java -help的一张截图：<br><img src="/img/other/java01.jpg" alt></p>
+<pre><code>从截图截图可以看出Java命令运行一个程序的的两种用法：
+用法: java [-options] class [args...] (执行类) 
+或者  java [-options] -jar jarfile [args...] (执行jar文件)
+</code></pre><p>在使用docker制作镜像的时候，我们应该怎么编写上面java的两种用法的Dockfile呢？</p>
+<h3 id="一、Dockerfile脚本"><a href="#一、Dockerfile脚本" class="headerlink" title="一、Dockerfile脚本"></a>一、Dockerfile脚本</h3><pre><code>touch  Dockerfile
+或者 vim Dockerfile
+</code></pre><p>方式一：使用java -jar的方式启动spring boot项目，把下面内容复制到刚创建的Dockerfile中</p>
+<pre><code>FROM openjdk:8-jre-alpine
+ADD  demo-docker-1.0.jar  /usr/local
+CMD java  -Xms512m -Xmx512m  -jar /usr/local/demo-docker-1.0.jar
+</code></pre><p>方式二：使用java -cp的方式启动spring boot项目，把下面内容复制到刚创建的Dockerfile中</p>
+<pre><code>FROM openjdk:8-jre-alpine
+CMD java  -cp /home/lfm/conf:/home/lfm/demo-docker-1.0.jar  -Xms512m -Xmx512m  org.springframework.boot.loader.JarLauncher
+</code></pre><p>在服务器上创建存在jar与jar里面配置文件的文件夹：</p>
+<pre><code>mkdir -p /home/lfm/conf
+</code></pre><p><img src="/img/other/java02.jpg" alt></p>
+<h3 id="二、制作镜像"><a href="#二、制作镜像" class="headerlink" title="二、制作镜像"></a>二、制作镜像</h3><pre><code>docker build -t demo:1.0 .
+</code></pre><p>备注：docker：镜像名 1.0：版本号   .：代表Dockerfile在当前路径 </p>
+<h3 id="三、运行镜像（容器是镜像的运行实例）"><a href="#三、运行镜像（容器是镜像的运行实例）" class="headerlink" title="三、运行镜像（容器是镜像的运行实例）"></a>三、运行镜像（容器是镜像的运行实例）</h3><p> 方式一： spring boot项目的jar通过java -jar启动</p>
+<pre><code>docker run -p 主机端口：容器端口 -v 主机挂载路径:容器数据卷的路径 -e 环境变量 --name 容器名 镜像名：版本号
 
+例如：docker run -p 30080：8080 -v /home/data:/local --name demo demo:1.0
+</code></pre><p>方式二：spring boot项目的jar通过java -cp启动</p>
+<pre><code>docker run -p 主机端口：容器端口 -v 主机挂载路径:容器数据卷的路径  -e 环境变量 --name 容器名 镜像名：版本号
+
+docker run -p 30080：8080 -v /home/lfm:/home/lfm --name demo demo:1.0
+</code></pre><p>读到这里，细心的人会发现，通过java -cp启动Spring boot项目，运行镜像时候的数据挂载（-v /home/lfm:/home/lfm ）与Dockerfile里面脚本（java  -cp /home/lfm/conf:/home/lfm/demo-docker-1.0.jar）很相似。而通过java -jar方式启动的时候则不需要关心挂载路径问题。<br>所以说，通过java -cp的运行Spring boot项目jar，其实运行的镜像的容器只是一个运行jar的JDK容器环境，下面通过图解释这个问题。</p>
+<p>java -jar的形式：<br><img src="/img/other/java04.jpg" alt></p>
+<p>java -cp的形式：<br><img src="/img/other/java03.jpg" alt></p>
+<p>如果公司测试环境是没有CICD流水线的单Docker环境或者个人迭代开发项目的情况下，使用jav -cp制作镜像，更新镜像的时候只需要更换相对主机应文件下的jar或者配置文件，然后重启容器即可。不需要重新制作镜像，避免很多麻烦。</p>
+<h3 id="四、重启容器的简单方法"><a href="#四、重启容器的简单方法" class="headerlink" title="四、重启容器的简单方法"></a>四、重启容器的简单方法</h3><pre><code>docker ps -a |grep 容器名或者对外端口号（能唯一标识该容器即可）  |awk &apos;{print $1}&apos; |xargs docker restart 
+
+例如：docker ps -a |grep 30080  |awk &apos;{print $1}&apos; |xargs docker restart 
+</code></pre>
       
     </div>
     
@@ -412,7 +409,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/k8s/" rel="tag"># k8s</a>
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
           
         </div>
       
@@ -425,15 +422,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/04/23/docker和k8s中批量删除不要的资源/" rel="next" title="如何在Docker和k8s中批量删除不要的资源">
+                <i class="fa fa-chevron-left"></i> 如何在Docker和k8s中批量删除不要的资源
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/16/CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装/" rel="prev" title="CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装">
-                CentOs7中快速彻底搞定Docker-ce版的卸载与指定版本的安装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -583,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题分析"><span class="nav-number">1.</span> <span class="nav-text">问题分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-number">1.1.</span> <span class="nav-text">解决办法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体操作截图"><span class="nav-number">2.</span> <span class="nav-text">具体操作截图</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、Dockerfile脚本"><span class="nav-number">1.</span> <span class="nav-text">一、Dockerfile脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、制作镜像"><span class="nav-number">2.</span> <span class="nav-text">二、制作镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、运行镜像（容器是镜像的运行实例）"><span class="nav-number">3.</span> <span class="nav-text">三、运行镜像（容器是镜像的运行实例）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、重启容器的简单方法"><span class="nav-number">4.</span> <span class="nav-text">四、重启容器的简单方法</span></a></li></ol></div>
             
 
           </div>
