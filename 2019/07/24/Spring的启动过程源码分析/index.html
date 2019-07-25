@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="西湖砍材人">
 <meta property="og:description" content="​        Spring有很强的拓展性，因此Spring有很强的生态，对Spring的深入理解可以提升开发在工作的效率，同时也可以学到更多Spring的代码思想，本文就是笔者最近读Spring源码之Spring启动过程的一点点个人理解，有些地方难免会出现理解不到位，希望大家多多指正。 Spring的启动过程-Refresh方法 ​        我阅读的源码版本是 4.3.6.RELEASE">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-24T15:00:05.018Z">
+<meta property="og:updated_time" content="2019-07-25T09:02:48.226Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring的启动过程源码分析">
 <meta name="twitter:description" content="​        Spring有很强的拓展性，因此Spring有很强的生态，对Spring的深入理解可以提升开发在工作的效率，同时也可以学到更多Spring的代码思想，本文就是笔者最近读Spring源码之Spring启动过程的一点点个人理解，有些地方难免会出现理解不到位，希望大家多多指正。 Spring的启动过程-Refresh方法 ​        我阅读的源码版本是 4.3.6.RELEASE">
@@ -338,7 +338,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  856
+                  1.4k
                 </span>
               
 
@@ -354,7 +354,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  5
                 </span>
               
             </div>
@@ -394,7 +394,7 @@
 <p>​        1) 设置BeanFactory的类加载器，支持表达式解析器</p>
 <p>​        2）添加部分BeanPostProcessor【 ApplicationContextAwareProcessor】</p>
 <p>​        3）设置忽略自动装配接口；</p>
-<p>​      【EnvironmentAware，EmbeddedValueResolverAware，ResourceLoaderAware，xxxAware】</p>
+<p>【EnvironmentAware，EmbeddedValueResolverAware，ResourceLoaderAware，xxxAware】</p>
 <p>​        4）设置可以解析的自动装配，我们能在任何组件中自动注入；</p>
 <p>​      【BeanFactory，ResourceLoader，ApplicationEventPublisher，ApplicationContext】</p>
 <p>​        5）添加BeanPostProcessor【ApplicationListenerDetector】</p>
@@ -427,6 +427,37 @@
 <p>​                                postProcessor.postProcessBeanFactory(beanFactory);</p>
 <p>​                    2.4）、最后执行没有实现任何优先级或者顺序接口的BeanFactoryPostProcessor；</p>
 <p>​                                postProcessor.postProcessBeanFactory(beanFactory);</p>
+<p><strong>6、registerBeanPostProcessors(beanFactory); 【注册Bean的后置处理器】</strong></p>
+<p>​        1）获取所有的BeanPostProcessor；后置处理器默认可以通过PriorityOrdered、Ordered接口来执行优先级。</p>
+<p>​        2）先注册PriorityOrdered优先级接口的BeanPostProcessor；</p>
+<p>​                把每一个BeanPostProcessor添加到BeanFactory中beanFactory.addBeanPostProcessor(postProcessor);</p>
+<p>​        3）再注册Orered优先级接口的BeanPostProcessor；</p>
+<p>​                把每一个BeanPostProcessor添加到BeanFactory中beanFactory.addBeanPostProcessor(postProcessor)</p>
+<p>​        4）最后注册没有实现任何接口优先级接口的BeanPostProcessor</p>
+<p>​        5）最终注册一个ApplicationListenerDetector添加到BeanFactory</p>
+<p><strong>7、initMessageSource();初始化MessageSource组件【做国际化功能；消息绑定，消息解析】</strong></p>
+<p>​        1）获取BeanFactory</p>
+<p>​        2）看容器中是否有id为messageSource的，类型是MessageSource的组件，如果有赋值给MessageSource，如果没有自己创建一个DelegatingMessageSource()</p>
+<p>​        3）把创建好的MessageSource注册到容器中，以后获取国际化配置文件值的时候，可以自动注入MessageSource；beanFactory.registerSingleton(MESSAGE_SOURCE_BEAN_NAME, this.messageSource);</p>
+<p><strong>8、initApplicationEventMulticaster();初始化事件派发器</strong></p>
+<p>​        1）获取BeanFactory</p>
+<p>​        2）看容器中是否有id为applicationEventMulticaster的的组件，有从容器中获取ApplicationEventMulticaster的ApplicationEventMulticaster</p>
+<p>​        3）如果上一步没有配置好，那么new SimpleApplicationEventMulticaster(beanFactory);</p>
+<p>​        4）把创建好的SimpleApplicationEventMulticaster注册到容器中，以后获取可以自动注入</p>
+<p><strong>9、onRefresh（）；模板方法里面的钩子方法，留给子容器</strong></p>
+<p>​        子类重写这个方法，在容器刷新的时候可以自定义逻辑。</p>
+<p><strong>10、registerlisteners();注册监听器；所有项目里面的ApplicationListen注册到容器中</strong></p>
+<p>​        1）获取所有的ApplicationListener</p>
+<p>​        2）将每个监听器添加到事件派发器中：</p>
+<p>getApplicationEventMulticaster().addApplicationListener(listener);</p>
+<p>​        3）派发之前步骤产生的事件。getApplicationEventMulticaster().multicastEvent(earlyEvent);</p>
+<p><strong>10、finishBeanFactoryInitialization(beanFactory);初始化所有剩下的单实例Bean</strong>（很重要，但是很复杂）</p>
+<p>  可以参考博客，这位大佬解释的很全：<a href="https://blog.csdn.net/nuomizhende45/article/details/81158383" target="_blank" rel="noopener">https://blog.csdn.net/nuomizhende45/article/details/81158383</a></p>
+<p><strong>11、finishRefresh();完成刷新</strong></p>
+<p>​        1）initLifecycleProcessor(); 初始化和生命周期有关的后置处理器LifecycleProcessor</p>
+<p>​        2）getLifecycleProcessor().onRefresh();拿到前面定义的生命周期处理器（BeanFactory），回调OnRefresh</p>
+<p>​        3）publishEvent(new ContextRefreshedEvent(this));发布容器刷新事件完成。</p>
+<p>​        4）LiveBeansView.registerApplicationContext(this);</p>
 
       
     </div>
@@ -634,7 +665,7 @@
 	
 	<div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共5.5k字</span>
+  <span class="post-count">博客全站共6k字</span>
 </div>
 </div>
 </div>
